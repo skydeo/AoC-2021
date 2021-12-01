@@ -20,7 +20,7 @@ v = True
 
 template = """import timeit
 
-with open('{}.in', 'r+') as f:
+with open('{}.txt', 'r+') as f:
   puzzle_input = [i for i in f.read().splitlines()]
 
 """
@@ -80,7 +80,7 @@ if today > max_date and month == 12:
             print("\tCreated folder {}.".format(new_dir))
             print("\tDownloading input file.")
 
-        with open(os.path.join(new_dir, str(d).zfill(2) + ".in"), "wb") as input_file:
+        with open(os.path.join(new_dir, str(d).zfill(2) + ".txt"), "wb") as input_file:
             input_file.write(download_input(token, d, year))
 
         if v:
