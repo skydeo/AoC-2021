@@ -36,4 +36,4 @@ for idx, val in enumerate(puzzle_input[1:-2]):
     last_smoothed_val = smoothed_val
 
 print(f"Part 2: Depth increased {increased} times.")
-os.system(f'echo "{increased}" | pbcopy')
+os.system(f"echo '{increased}' | pbcopy")

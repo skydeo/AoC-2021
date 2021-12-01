@@ -18,12 +18,6 @@ breaks, 🤷🏼‍♂️
 
 v = True
 
-template = """import timeit
-
-with open('{}.txt', 'r+') as f:
-  puzzle_input = [i for i in f.read().splitlines()]
-
-"""
 
 with open("token.txt") as t:
     token = t.read().strip()
@@ -36,6 +30,19 @@ dir_list = sorted(os.listdir(os.path.expanduser(".")))
 folders = [f for f in dir_list if re.search(r"day[0-9]{2}", f) and os.path.isdir(f)]
 
 max_date = max([int(folder[-2:]) for folder in folders]) if len(folders) > 0 else 0
+
+
+def copy_template(day_number, output_path):
+    day_number = str(day_number).zfill(2)
+    with open("template.py", "r+") as f:
+        template = f.readlines()
+
+    template = [line.replace("DAYNUMBER", day_number) for line in template]
+
+    with open(
+        os.path.join(output_path, "day" + day_number + ".py"), "w"
+    ) as template_file:
+        template_file.writelines(template)
 
 
 def download_input(token, day=None, year=None):
@@ -86,10 +93,7 @@ if today > max_date and month == 12:
         if v:
             print("\tCreating template file.")
 
-        with open(
-            os.path.join(new_dir, "day" + str(d).zfill(2) + ".py"), "w"
-        ) as template_file:
-            template_file.write(template.format(str(d).zfill(2)))
+        copy_template(d, new_dir)
 
         if v:
             print("Day {} complete.".format(d))
